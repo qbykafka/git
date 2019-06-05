@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link type="text/css"  rel="stylesheet"   href="../static/css/bootstrap.css">
+    <script type="text/javascript" src="../static/jquery-1.11.2.js"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.js" ></script>
+    <style>
+        div.login{
+            width: 450px; height: 350px;
+            margin-left: 950px;
+            margin-top: 250px;
+            border: 1px solid #000000;
+            border-radius: 8px;
+        }
+        div.inner-login{
+            margin-left: 55px;
+            margin-top: 45px;
+        }
+        .login-btn{
+            margin-top: 15px;
+        }
+        span{
+            margin-top: 20px;
+        }
+        input.form-control{
+            margin-top: 10px;
+            width: 250px;
+        }
+    </style>
+    <script>
+        $(function () {
+            /*登录*/
+            $('div.login-btn>button').click(function() {
+                let $input0 = $('input:eq(0)')[0];
+                let $input1 = $('input:eq(1)')[0];
+                if (!($input0.validity.valueMissing || $input1.validity.valueMissing)){
+                    $('div.login-btn>button').attr('type','button');
+                    let username = $($input0).val();
+                    let password = $($input1).val();
+                    let data = {'username': username, 'password': password};
+                    $.ajax({
+                        url:'login.do',
+                        type:'post',
+                        data:JSON.stringify(data),
+                        dataType:'json',
+                        contentType:'application/json;charset=utf-8',
+                        success:function (r) {
+                            if (r.success)
+                                location.href = '';
+                            else{
+                                $('p.msg').css('color','red');
+                                $('p.msg').text(r.message);
+                            }
+                        }
+                    });
+                }
+            });
+        })
+    </script>
+</head>
+<body>
+    <div class="login">
+        <form class="form-signin">
+            <div class="inner-login">
+                <h3>请登录</h3>
+                <span class="glyphicon glyphicon-user" />
+                <input type="text" class="form-control" placeholder="账    号" aria-describedby="sizing-addon3" required/>
+                <span class="glyphicon glyphicon-lock" />
+                <input type="password" class="form-control" placeholder="密    码" aria-describedby="sizing-addon3" required/>
+                <label>
+                    <input type="checkbox" >
+                    记住密码
+                </label>
+                <p class="msg"></p>
+                <div class="login-btn">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">
+                        登 录
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
