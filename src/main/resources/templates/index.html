@@ -48,7 +48,7 @@
                         contentType:'application/json;charset=utf-8',
                         success:function (r) {
                             if (r.success)
-                                location.href = '';
+                                location.href = '/toMain.do';
                             else{
                                 $('p.msg').css('color','red');
                                 $('p.msg').text(r.message);

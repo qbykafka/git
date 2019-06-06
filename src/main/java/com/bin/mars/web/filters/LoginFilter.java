@@ -25,11 +25,16 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = HttpServletRequest.class.cast(request);
         HttpServletResponse httpServletResponse = HttpServletResponse.class.cast(response);
+        boolean valid = false;
         if (!"/".equals(httpServletRequest.getRequestURI())) {
             HttpSession session = httpServletRequest.getSession(false);
-            if (session == null) //如果没有会话,则不能继续访问调回到首页
-                httpServletResponse.sendRedirect("/");
+            //如果没有会话,则不能继续访问调回到首页
+            valid = session == null;
         }
+        //验证防盗链是否为空
+//        valid = request.getAttribute("Referer") == null ;
+        if (valid)
+            httpServletResponse.sendRedirect("/");
         chain.doFilter(request,response);
     }
 }

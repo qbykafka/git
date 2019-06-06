@@ -18,4 +18,12 @@ public class IndexController {
         return "index";
     }
 
+    /**
+     * 主页
+     * @return
+     */
+    @RequestMapping("/toMain.do")
+    public String main(){
+        return "main";
+    }
 }
