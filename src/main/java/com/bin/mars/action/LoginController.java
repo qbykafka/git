@@ -56,7 +56,7 @@ public class LoginController extends BaseController {
                     response.setSuccess(true);
                     response.setMessage("登录成功");
                 }else{
-                    response.setMessage("用户名或密码不错误");
+                    response.setMessage("用户名或密码错误");
                 }
 
             }
@@ -69,12 +69,12 @@ public class LoginController extends BaseController {
      * 退出
      */
     @RequestMapping("/logout.do")
-    public void logout() throws IOException {
+    public String logout(){
         //获取session
-        HttpSession session = getSession(false);
+       HttpSession session = getSession(false);
         if (session != null)
             session.invalidate();
-        getHttpServletResponse().sendRedirect("/");
+        return "redirect:/";
     }
 
 
